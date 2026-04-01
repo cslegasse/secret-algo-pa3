@@ -31,7 +31,7 @@ done
 
 ## Q1 Comparison
 
-[Benchmark Graph](./benchmark.png)
+![Benchmark Graph](./benchmark.png)
 
 ## Q2 Reccurance
 
