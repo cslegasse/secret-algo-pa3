@@ -27,14 +27,45 @@ def is_common_subsequence(s: str, A: str, B: str) -> bool:
 def compute(s: str, values: Dict[str, int]) -> int:
   return sum(values.get(c, 0) for c in s)
 
-# TO DO
+# Compute the highest value common sequence of A and B
 def solve(values: Dict[str, int], A: str, B: str) -> Tuple[int, str]:
-  # Returns (max_value, optimal_subsequence)
-  # Compute the highest value common sequence of A and B
-  # This is LC Med: https://leetcode.com/problems/longest-common-subsequence/description/
-  # Approach: fill in DP table, traceback, find max value of common subseq., reconstruct  optimal subseq from DP
+  # initialize commonly used variables
+  n = len(A)
+  m = len(B)
 
-  raise NotImplementedError("implement solve()")
+  # initialize DP table
+  dp = [[0 for _  in range(m + 1)] for _ in range(n + 1)]
+
+  # fill in DP table
+
+  for i in range(1, n + 1):
+    for j in range(1, m + 1):
+      if A[i - 1] == B[j - 1]:
+        val = values.get(A[i - 1], 0)
+        dp[i][j] = dp[i - 1][j - 1] + val
+      else:
+        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+  
+  # find max value of common subsequence
+  max_value = dp[n][m]
+
+  # reconstruct optimal subsequence
+  optimal_subsequence = ""
+  i, j = n, m
+
+  while i > 0 and j > 0:
+    if A[i - 1] == B[j - 1]:
+      optimal_subsequence += A[i - 1]
+      i -= 1
+      j -= 1
+    elif dp[i - 1][j] > dp[i][j - 1]:
+      i -= 1
+    else:
+      j -= 1
+  
+  optimal_subsequence = optimal_subsequence[::-1]
+
+  return max_value, optimal_subsequence
 
 def main() -> None:
   values, A, B = parse_input(sys.stdin.read())
