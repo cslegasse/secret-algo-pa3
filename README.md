@@ -1,5 +1,4 @@
 # secret-algo-pa3
-
 - **Legasse Remon** (UFID: 16447883)
 - **Brynn Li** (UFID: 14196126)
 
@@ -62,6 +61,7 @@ HVLCS(A, B, v):
                 dp[i][j] = max(dp[i-1][j], dp[i][j-1])
     return dp[m][n]
 ```
+
 Note: the traceback (reconstructing the subsequence) adds an O(m + n) walk back through the table and does not change the overall complexity.
 
 | Resource | Cost |
